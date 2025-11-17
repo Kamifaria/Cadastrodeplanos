@@ -1,1 +1,10 @@
-:host {}
+:host {
+  display: block;
+}
+input.ng-invalid.ng-touched {
+  border-color: #d32f2f;
+}
+label > div {
+  color: #d32f2f;
+  font-size: 0.875rem;
+}

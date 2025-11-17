@@ -1,9 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { PlanoService } from '../../../core/services/plano.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-plano-form',
@@ -12,20 +12,55 @@ import { Router } from '@angular/router';
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule]
 })
-export class PlanoFormComponent {
+export class PlanoFormComponent implements OnInit {
   form: FormGroup;
+  id?: number;
+  isEdit = false;
 
-  constructor(fb: FormBuilder, private service: PlanoService, private router: Router) {
+  constructor(
+    fb: FormBuilder,
+    private service: PlanoService,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {
     this.form = fb.group({
-      nome: ['', Validators.required],
-      codigo_registro_ans: ['', Validators.required]
+      nome: ['', [Validators.required, Validators.minLength(3)]],
+      codigo_registro_ans: ['', [Validators.required, Validators.pattern(/^ANS-\d{6}$/)]]
     });
   }
 
+  ngOnInit(): void {
+    const idParam = this.route.snapshot.paramMap.get('id');
+    if (idParam) {
+      this.id = Number(idParam);
+      this.isEdit = true;
+      this.service.get(this.id).subscribe((plano) => {
+        this.form.patchValue({
+          nome: plano.nome,
+          codigo_registro_ans: plano.codigo_registro_ans
+        });
+      });
+    }
+  }
+
   salvar(): void {
-    if (!this.form.valid) return;
-    this.service.create(this.form.value).subscribe(() => {
-      this.router.navigate(['/planos']);
-    });
+    if (!this.form.valid) {
+      Object.values(this.form.controls).forEach((c) => c.markAsTouched());
+      return;
+    }
+    if (this.isEdit && this.id) {
+      this.service.update(this.id, this.form.value).subscribe(() => {
+        this.router.navigate(['/planos']);
+      });
+    } else {
+      this.service.create(this.form.value).subscribe(() => {
+        this.router.navigate(['/planos']);
+      });
+    }
+  }
+
+  invalid(name: string): boolean {
+    const c = this.form.get(name);
+    return !!c && c.invalid && (c.dirty || c.touched);
   }
 }
