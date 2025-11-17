@@ -24,6 +24,7 @@
       Plano
       <select formControlName="plano_id">
         <option [value]="null">Selecione</option>
+        <option *ngFor="let p of planos" [value]="p.id">{{ p.nome }}</option>
       </select>
     </label>
     <button type="button" (click)="salvar()" [disabled]="!form.valid">Salvar</button>

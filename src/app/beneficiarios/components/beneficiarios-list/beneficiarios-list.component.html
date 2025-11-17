@@ -1,4 +1,29 @@
 <section>
   <h2>Beneficiários</h2>
   <a routerLink="/beneficiarios/novo">Novo Beneficiário</a>
+  <table>
+    <thead>
+      <tr>
+        <th>Nome</th>
+        <th>CPF</th>
+        <th>Nascimento</th>
+        <th>Status</th>
+        <th>Plano</th>
+        <th>Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let b of beneficiarios">
+        <td>{{ b.nome_completo }}</td>
+        <td>{{ b.cpf }}</td>
+        <td>{{ b.data_nascimento }}</td>
+        <td>{{ b.status }}</td>
+        <td>{{ b.plano.nome }}</td>
+        <td>
+          <a [routerLink]="['/beneficiarios/editar', b.id]">Editar</a>
+          <button type="button" (click)="remover(b.id)">Excluir</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </section>

@@ -1,4 +1,23 @@
 <section>
   <h2>Planos</h2>
   <a routerLink="/planos/novo">Novo Plano</a>
+  <table>
+    <thead>
+      <tr>
+        <th>Nome</th>
+        <th>Código ANS</th>
+        <th>Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let p of planos">
+        <td>{{ p.nome }}</td>
+        <td>{{ p.codigo_registro_ans }}</td>
+        <td>
+          <a [routerLink]="['/planos/editar', p.id]">Editar</a>
+          <button type="button" (click)="remover(p.id)">Excluir</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </section>
