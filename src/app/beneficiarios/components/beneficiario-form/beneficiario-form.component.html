@@ -1,0 +1,31 @@
+<section>
+  <h2>Beneficiário</h2>
+  <form [formGroup]="form">
+    <label>
+      Nome Completo
+      <input type="text" formControlName="nome_completo" />
+    </label>
+    <label>
+      CPF
+      <input type="text" formControlName="cpf" />
+    </label>
+    <label>
+      Data de Nascimento
+      <input type="date" formControlName="data_nascimento" />
+    </label>
+    <label>
+      Status
+      <select formControlName="status">
+        <option value="ATIVO">ATIVO</option>
+        <option value="INATIVO">INATIVO</option>
+      </select>
+    </label>
+    <label>
+      Plano
+      <select formControlName="plano_id">
+        <option [value]="null">Selecione</option>
+      </select>
+    </label>
+    <button type="button" (click)="salvar()" [disabled]="!form.valid">Salvar</button>
+  </form>
+</section>
