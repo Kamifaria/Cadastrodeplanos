@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { PlanoService } from '../../../core/services/plano.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { ToastService } from '../../../core/services/toast.service';
 
 @Component({
   selector: 'app-plano-form',
@@ -21,7 +22,8 @@ export class PlanoFormComponent implements OnInit {
     fb: FormBuilder,
     private service: PlanoService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private ts: ToastService
   ) {
     this.form = fb.group({
       nome: ['', [Validators.required, Validators.minLength(3)]],
@@ -49,11 +51,15 @@ export class PlanoFormComponent implements OnInit {
       return;
     }
     if (this.isEdit && this.id) {
-      this.service.update(this.id, this.form.value).subscribe(() => {
+      this.service.update(this.id, this.form.value).subscribe((plano) => {
+        const nome = plano?.nome ?? this.form.value.nome;
+        this.ts.show(`${nome} atualizado`, 'success');
         this.router.navigate(['/planos']);
       });
     } else {
-      this.service.create(this.form.value).subscribe(() => {
+      this.service.create(this.form.value).subscribe((plano) => {
+        const nome = plano?.nome ?? this.form.value.nome;
+        this.ts.show(`${nome} criado`, 'success');
         this.router.navigate(['/planos']);
       });
     }
