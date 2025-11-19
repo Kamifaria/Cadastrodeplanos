@@ -7,6 +7,7 @@ import { PlanoService } from '../../../core/services/plano.service';
 import { Plano } from '../../../core/models/plano';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AbstractControl, ValidationErrors } from '@angular/forms';
+import { ToastService } from '../../../core/services/toast.service';
 
 @Component({
   selector: 'app-beneficiario-form',
@@ -26,7 +27,8 @@ export class BeneficiarioFormComponent implements OnInit {
     private service: BeneficiarioService,
     private planoService: PlanoService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private ts: ToastService
   ) {
     this.form = fb.group({
       nome_completo: ['', [Validators.required, Validators.minLength(3)]],
@@ -63,13 +65,17 @@ export class BeneficiarioFormComponent implements OnInit {
     const payload = this.form.value;
     if (this.isEdit && this.id) {
       console.log('UPDATE beneficiario', this.id, payload);
-      this.service.update(this.id, payload).subscribe(() => {
+      this.service.update(this.id, payload).subscribe((b) => {
+        const nome = b?.nome_completo ?? payload.nome_completo;
+        this.ts.show(`${nome} atualizado`, 'success');
         this.router.navigate(['/beneficiarios']);
         this.form.markAsPristine();
       });
     } else {
       console.log('CREATE beneficiario', payload);
-      this.service.create(payload).subscribe(() => {
+      this.service.create(payload).subscribe((b) => {
+        const nome = b?.nome_completo ?? payload.nome_completo;
+        this.ts.show(`${nome} criado`, 'success');
         this.router.navigate(['/beneficiarios']);
         this.form.reset({ status: 'ATIVO' });
       });

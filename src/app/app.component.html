@@ -6,6 +6,15 @@
   <h1>Cadastro de Planos e Beneficiários</h1>
   <hr />
 </header>
+<div class="toast-container">
+  @for (t of (toasts$ | async) ?? []; track t.id) {
+    <div class="toast" [class.error]="t.type === 'error'" [class.success]="t.type === 'success'" [class.info]="t.type === 'info'">
+      {{ t.message }}
+      <button class="close" type="button" (click)="closeToast(t.id)" aria-label="Fechar">×</button>
+    </div>
+  }
+  
+</div>
 <style>
   :host {
     --bright-blue: oklch(51.01% 0.274 263.83);
@@ -159,6 +168,41 @@
 
   .social-links a:hover svg path {
     fill: var(--gray-900);
+  }
+
+  .toast-container {
+    position: fixed;
+    right: 1rem;
+    bottom: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    z-index: 1000;
+  }
+
+  .toast {
+    padding: 0.75rem 1rem;
+    border-radius: 0.375rem;
+    color: white;
+    background: var(--gray-900);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    max-width: 360px;
+    position: relative;
+  }
+
+  .toast.error { background: var(--hot-red); }
+  .toast.success { background: var(--bright-blue); }
+  .toast.info { background: var(--gray-700); }
+
+  .toast .close {
+    position: absolute;
+    top: 4px;
+    right: 8px;
+    background: transparent;
+    border: 0;
+    color: white;
+    font-size: 1rem;
+    cursor: pointer;
   }
 
   @media screen and (max-width: 650px) {
