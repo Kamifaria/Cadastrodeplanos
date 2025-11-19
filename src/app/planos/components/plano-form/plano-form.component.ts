@@ -4,10 +4,7 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { PlanoService } from '../../../core/services/plano.service';
 import { Router, ActivatedRoute } from '@angular/router';
-<<<<<<< HEAD
 import { ToastService } from '../../../core/services/toast.service';
-=======
->>>>>>> feature/validation-ux
 
 @Component({
   selector: 'app-plano-form',
@@ -25,12 +22,8 @@ export class PlanoFormComponent implements OnInit {
     fb: FormBuilder,
     private service: PlanoService,
     private router: Router,
-<<<<<<< HEAD
     private route: ActivatedRoute,
     private ts: ToastService
-=======
-    private route: ActivatedRoute
->>>>>>> feature/validation-ux
   ) {
     this.form = fb.group({
       nome: ['', [Validators.required, Validators.minLength(3)]],
