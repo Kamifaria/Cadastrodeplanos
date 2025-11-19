@@ -4,6 +4,7 @@
 input.ng-invalid.ng-touched,
 select.ng-invalid.ng-touched {
   border-color: #d32f2f;
+  outline: 1px dashed rgba(211, 47, 47, 0.3);
 }
 label > div {
   color: #d32f2f;
