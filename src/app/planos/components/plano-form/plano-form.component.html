@@ -4,10 +4,12 @@
     <label>
       Nome
       <input type="text" formControlName="nome" />
+      <div *ngIf="invalid('nome')">Informe o nome (mínimo 3 caracteres).</div>
     </label>
     <label>
       Código ANS
       <input type="text" formControlName="codigo_registro_ans" />
+      <div *ngIf="invalid('codigo_registro_ans')">Formato esperado: ANS-000000.</div>
     </label>
     <button type="button" (click)="salvar()" [disabled]="!form.valid">Salvar</button>
   </form>

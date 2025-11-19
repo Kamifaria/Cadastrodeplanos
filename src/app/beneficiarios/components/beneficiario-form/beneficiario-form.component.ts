@@ -30,10 +30,18 @@ export class BeneficiarioFormComponent {
   }
 
   salvar(): void {
-    if (!this.form.valid) return;
+    if (!this.form.valid) {
+      Object.values(this.form.controls).forEach((c) => c.markAsTouched());
+      return;
+    }
     const payload = this.form.value;
     this.service.create(payload).subscribe(() => {
       this.router.navigate(['/beneficiarios']);
     });
+  }
+
+  invalid(name: string): boolean {
+    const c = this.form.get(name);
+    return !!c && c.invalid && (c.dirty || c.touched);
   }
 }
