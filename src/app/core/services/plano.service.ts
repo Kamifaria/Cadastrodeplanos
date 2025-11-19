@@ -11,22 +11,27 @@ export class PlanoService {
   constructor(private http: HttpClient) {}
 
   list(): Observable<Plano[]> {
+    console.log('GET', this.base);
     return this.http.get<Plano[]>(this.base);
   }
 
   get(id: number): Observable<Plano> {
+    console.log('GET', `${this.base}/${id}`);
     return this.http.get<Plano>(`${this.base}/${id}`);
   }
 
   create(plano: Omit<Plano, 'id'>): Observable<Plano> {
+    console.log('POST', this.base, plano);
     return this.http.post<Plano>(this.base, plano);
   }
 
   update(id: number, plano: Partial<Plano>): Observable<Plano> {
+    console.log('PUT', `${this.base}/${id}`, plano);
     return this.http.put<Plano>(`${this.base}/${id}`, plano);
   }
 
   delete(id: number): Observable<void> {
+    console.log('DELETE', `${this.base}/${id}`);
     return this.http.delete<void>(`${this.base}/${id}`);
   }
 }

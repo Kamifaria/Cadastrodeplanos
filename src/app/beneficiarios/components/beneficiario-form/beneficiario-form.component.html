@@ -4,14 +4,17 @@
     <label>
       Nome Completo
       <input type="text" formControlName="nome_completo" />
+      <div *ngIf="invalid('nome_completo')">Informe o nome (mínimo 3 caracteres).</div>
     </label>
     <label>
       CPF
       <input type="text" formControlName="cpf" />
+      <div *ngIf="invalid('cpf')">CPF inválido.</div>
     </label>
     <label>
       Data de Nascimento
       <input type="date" formControlName="data_nascimento" />
+      <div *ngIf="invalid('data_nascimento')">Informe a data de nascimento.</div>
     </label>
     <label>
       Status
@@ -19,6 +22,7 @@
         <option value="ATIVO">ATIVO</option>
         <option value="INATIVO">INATIVO</option>
       </select>
+      <div *ngIf="invalid('status')">Informe o status.</div>
     </label>
     <label>
       Plano
@@ -26,6 +30,7 @@
         <option [value]="null">Selecione</option>
         <option *ngFor="let p of planos" [value]="p.id">{{ p.nome }}</option>
       </select>
+      <div *ngIf="invalid('plano_id')">Selecione um plano.</div>
     </label>
     <button type="button" (click)="salvar()" [disabled]="!form.valid">Salvar</button>
   </form>
