@@ -13,6 +13,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatTableDataSource } from '@angular/material/table';
+import { MatMenuModule } from '@angular/material/menu';
 
 @Component({
   selector: 'app-planos-list',
@@ -29,7 +30,8 @@ import { MatTableDataSource } from '@angular/material/table';
     MatInputModule,
     MatIconModule,
     MatButtonModule,
-    MatCardModule
+    MatCardModule,
+    MatMenuModule
   ]
 })
 export class PlanosListComponent implements OnInit {
