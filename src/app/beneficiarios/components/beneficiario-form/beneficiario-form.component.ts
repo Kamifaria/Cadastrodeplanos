@@ -58,12 +58,16 @@ export class BeneficiarioFormComponent implements OnInit {
     if (!this.form.valid) return;
     const payload = this.form.value;
     if (this.isEdit && this.id) {
+      console.log('UPDATE beneficiario', this.id, payload);
       this.service.update(this.id, payload).subscribe(() => {
         this.router.navigate(['/beneficiarios']);
+        this.form.markAsPristine();
       });
     } else {
+      console.log('CREATE beneficiario', payload);
       this.service.create(payload).subscribe(() => {
         this.router.navigate(['/beneficiarios']);
+        this.form.reset({ status: 'ATIVO' });
       });
     }
   }
