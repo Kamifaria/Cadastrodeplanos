@@ -1,11 +1,9 @@
-<header>
-  <nav>
-    <a routerLink="/planos" routerLinkActive="active" style="margin-right:12px">Planos</a>
-    <a routerLink="/beneficiarios" routerLinkActive="active" style="margin-left:4px">Beneficiários</a>
-  </nav>
-  <h1>Cadastro de Planos e Beneficiários</h1>
-  <hr />
-</header>
+<mat-toolbar color="primary">
+  <span>Cadastro de Planos e Beneficiários</span>
+  <span style="flex:1"></span>
+  <a mat-button routerLink="/planos" routerLinkActive="active">Planos</a>
+  <a mat-button routerLink="/beneficiarios" routerLinkActive="active">Beneficiários</a>
+</mat-toolbar>
 <div class="toast-container">
   @for (t of (toasts$ | async) ?? []; track t.id) {
     <div class="toast" [class.error]="t.type === 'error'" [class.success]="t.type === 'success'" [class.info]="t.type === 'info'">
@@ -363,6 +361,26 @@
         </a>
       </div>
     </div>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;max-width:1000px;margin:32px auto 0">
+    <mat-card>
+      <mat-card-title>Planos</mat-card-title>
+      <mat-card-content>
+        <p>Gerencie planos cadastrados.</p>
+      </mat-card-content>
+      <mat-card-actions>
+        <a mat-raised-button color="primary" routerLink="/planos">Abrir</a>
+      </mat-card-actions>
+    </mat-card>
+    <mat-card>
+      <mat-card-title>Beneficiários</mat-card-title>
+      <mat-card-content>
+        <p>Cadastre e edite beneficiários.</p>
+      </mat-card-content>
+      <mat-card-actions>
+        <a mat-raised-button color="primary" routerLink="/beneficiarios">Abrir</a>
+      </mat-card-actions>
+    </mat-card>
   </div>
 </main>
 
