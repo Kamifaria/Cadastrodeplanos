@@ -1,0 +1,49 @@
+<section class="page">
+  <mat-card class="hero">
+    <div class="hero-content">
+      <h1 class="hero-title">Cadastro de Planos e Beneficiários</h1>
+      <p class="hero-subtitle">Gerencie planos e beneficiários com rapidez usando Angular Material.</p>
+      <div class="hero-actions">
+        <a mat-raised-button color="primary" routerLink="/planos">
+          <mat-icon>assignment</mat-icon>
+          <span>Ir para Planos</span>
+        </a>
+        <a mat-raised-button color="accent" routerLink="/beneficiarios">
+          <mat-icon>groups</mat-icon>
+          <span>Ir para Beneficiários</span>
+        </a>
+      </div>
+    </div>
+    <mat-icon class="hero-icon">dashboard</mat-icon>
+  </mat-card>
+
+  <div class="grid">
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>Planos</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <p>Cadastre, edite e exclua planos.</p>
+      </mat-card-content>
+      <mat-card-actions>
+        <a mat-button color="primary" routerLink="/planos">Abrir lista</a>
+        <span class="flex-spacer"></span>
+        <a mat-stroked-button routerLink="/planos/novo">Novo Plano</a>
+      </mat-card-actions>
+    </mat-card>
+
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>Beneficiários</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <p>Gerencie os beneficiários vinculados aos planos.</p>
+      </mat-card-content>
+      <mat-card-actions>
+        <a mat-button color="primary" routerLink="/beneficiarios">Abrir lista</a>
+        <span class="flex-spacer"></span>
+        <a mat-stroked-button routerLink="/beneficiarios/novo">Novo Beneficiário</a>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</section>
