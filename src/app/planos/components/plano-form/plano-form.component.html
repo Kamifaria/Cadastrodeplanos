@@ -1,0 +1,14 @@
+<section>
+  <h2>Plano</h2>
+  <form [formGroup]="form">
+    <label>
+      Nome
+      <input type="text" formControlName="nome" />
+    </label>
+    <label>
+      Código ANS
+      <input type="text" formControlName="codigo_registro_ans" />
+    </label>
+    <button type="button" (click)="salvar()" [disabled]="!form.valid">Salvar</button>
+  </form>
+</section>
