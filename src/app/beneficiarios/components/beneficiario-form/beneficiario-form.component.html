@@ -1,37 +1,45 @@
 <section>
-  <h2>Beneficiário</h2>
-  <form [formGroup]="form">
-    <label>
-      Nome Completo
-      <input type="text" formControlName="nome_completo" />
-      <div *ngIf="invalid('nome_completo')">Informe o nome (mínimo 3 caracteres).</div>
-    </label>
-    <label>
-      CPF
-      <input type="text" formControlName="cpf" />
-      <div *ngIf="invalid('cpf')">CPF inválido.</div>
-    </label>
-    <label>
-      Data de Nascimento
-      <input type="date" formControlName="data_nascimento" />
-      <div *ngIf="invalid('data_nascimento')">Informe a data de nascimento.</div>
-    </label>
-    <label>
-      Status
-      <select formControlName="status">
-        <option value="ATIVO">ATIVO</option>
-        <option value="INATIVO">INATIVO</option>
-      </select>
-      <div *ngIf="invalid('status')">Informe o status.</div>
-    </label>
-    <label>
-      Plano
-      <select formControlName="plano_id">
-        <option [value]="null">Selecione</option>
-        <option *ngFor="let p of planos" [value]="p.id">{{ p.nome }}</option>
-      </select>
-      <div *ngIf="invalid('plano_id')">Selecione um plano.</div>
-    </label>
-    <button type="button" (click)="salvar()" [disabled]="!form.valid">Salvar</button>
-  </form>
+  <mat-card>
+    <h2>Beneficiário</h2>
+    <form [formGroup]="form">
+      <mat-form-field appearance="fill" style="width:100%">
+        <mat-label>Nome Completo</mat-label>
+        <input matInput type="text" formControlName="nome_completo" />
+        <mat-error *ngIf="invalid('nome_completo')">Informe o nome (mínimo 3 caracteres).</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" style="width:100%">
+        <mat-label>CPF</mat-label>
+        <input matInput type="text" formControlName="cpf" />
+        <mat-error *ngIf="invalid('cpf')">CPF inválido.</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" style="width:100%">
+        <mat-label>Data de Nascimento</mat-label>
+        <input matInput [matDatepicker]="picker" formControlName="data_nascimento" />
+        <mat-datepicker #picker></mat-datepicker>
+        <mat-error *ngIf="invalid('data_nascimento')">Informe a data de nascimento.</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" style="width:100%">
+        <mat-label>Status</mat-label>
+        <mat-select formControlName="status">
+          <mat-option value="ATIVO">ATIVO</mat-option>
+          <mat-option value="INATIVO">INATIVO</mat-option>
+        </mat-select>
+        <mat-error *ngIf="invalid('status')">Informe o status.</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" style="width:100%">
+        <mat-label>Plano</mat-label>
+        <mat-select formControlName="plano_id">
+          <mat-option [value]="null" disabled>Selecione</mat-option>
+          <mat-option *ngFor="let p of planos" [value]="p.id">{{ p.nome }}</mat-option>
+        </mat-select>
+        <mat-error *ngIf="invalid('plano_id')">Selecione um plano.</mat-error>
+      </mat-form-field>
+
+      <button mat-raised-button color="primary" type="button" (click)="salvar()" [disabled]="!form.valid">Salvar</button>
+    </form>
+  </mat-card>
 </section>

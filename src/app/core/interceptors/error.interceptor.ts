@@ -4,6 +4,7 @@ import { inject } from '@angular/core';
 import { ToastService } from '../services/toast.service';
 
 export const errorInterceptor: HttpInterceptorFn = (req, next) => {
+  const ts = inject(ToastService);
   return next(req).pipe(
     catchError((err) => {
       const status = err?.status ?? 0;
@@ -12,7 +13,6 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
       else if (status >= 500) message = 'Erro interno no servidor';
       else if (status === 404) message = 'Recurso não encontrado';
       else if (status === 400) message = 'Requisição inválida';
-      const ts = inject(ToastService);
       ts.show(message, 'error');
       return throwError(() => err);
     })

@@ -1,23 +1,41 @@
-<section>
-  <h2>Planos</h2>
-  <a routerLink="/planos/novo">Novo Plano</a>
-  <table>
-    <thead>
-      <tr>
-        <th>Nome</th>
-        <th>Código ANS</th>
-        <th>Ações</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let p of planos">
-        <td>{{ p.nome }}</td>
-        <td>{{ p.codigo_registro_ans }}</td>
-        <td>
-          <a [routerLink]="['/planos/editar', p.id]">Editar</a>
-          <button type="button" (click)="remover(p.id)">Excluir</button>
+<section style="padding:24px">
+  <mat-card>
+    <div style="display:flex;align-items:center;gap:12px;justify-content:space-between">
+      <h2 style="margin:0">Planos</h2>
+      <a mat-raised-button color="primary" routerLink="/planos/novo">Novo Plano</a>
+    </div>
+    <div style="margin:12px 0">
+      <mat-form-field appearance="fill" style="width:320px">
+        <mat-label>Filtrar</mat-label>
+        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Digite para filtrar" />
+      </mat-form-field>
+    </div>
+
+    <table mat-table [dataSource]="data" matSort style="width:100%">
+      <ng-container matColumnDef="nome">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Nome</th>
+        <td mat-cell *matCellDef="let p">{{ p.nome }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="codigo_registro_ans">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Código ANS</th>
+        <td mat-cell *matCellDef="let p">{{ p.codigo_registro_ans }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="acoes">
+        <th mat-header-cell *matHeaderCellDef>Ações</th>
+        <td mat-cell *matCellDef="let p">
+          <a mat-stroked-button color="primary" [routerLink]="['/planos/editar', p.id]">Editar</a>
+          <button mat-icon-button color="warn" type="button" (click)="remover(p.id)" aria-label="Excluir">
+            <mat-icon>delete</mat-icon>
+          </button>
         </td>
-      </tr>
-    </tbody>
-  </table>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+
+    <mat-paginator [pageSize]="10" [pageSizeOptions]="[5,10,25]" showFirstLastButtons></mat-paginator>
+  </mat-card>
 </section>

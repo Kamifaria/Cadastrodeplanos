@@ -2,6 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
+import { MatCardModule } from '@angular/material/card';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
 import { PlanoService } from '../../../core/services/plano.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ToastService } from '../../../core/services/toast.service';
@@ -11,7 +15,14 @@ import { ToastService } from '../../../core/services/toast.service';
   templateUrl: './plano-form.component.html',
   styleUrls: ['./plano-form.component.scss'],
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule]
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    MatCardModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule
+  ]
 })
 export class PlanoFormComponent implements OnInit {
   form: FormGroup;

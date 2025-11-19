@@ -2,6 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
+import { MatCardModule } from '@angular/material/card';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatButtonModule } from '@angular/material/button';
 import { BeneficiarioService } from '../../../core/services/beneficiario.service';
 import { PlanoService } from '../../../core/services/plano.service';
 import { Plano } from '../../../core/models/plano';
@@ -14,7 +21,17 @@ import { ToastService } from '../../../core/services/toast.service';
   templateUrl: './beneficiario-form.component.html',
   styleUrls: ['./beneficiario-form.component.scss'],
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule]
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    MatCardModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatButtonModule
+  ]
 })
 export class BeneficiarioFormComponent implements OnInit {
   form: FormGroup;
@@ -62,7 +79,10 @@ export class BeneficiarioFormComponent implements OnInit {
       Object.values(this.form.controls).forEach((c) => c.markAsTouched());
       return;
     }
-    const payload = this.form.value;
+    const raw = this.form.value as any;
+    const d = raw.data_nascimento;
+    const data_nascimento = d instanceof Date ? new Date(d).toISOString().slice(0, 10) : d;
+    const payload = { ...raw, data_nascimento };
     if (this.isEdit && this.id) {
       console.log('UPDATE beneficiario', this.id, payload);
       this.service.update(this.id, payload).subscribe((b) => {
